@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | Our New Website</title>
+    <!-- Link to Google Fonts -->
+    <link href="fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Countdown Styles */
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            min-width: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Email Form */
+        .subscribe-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        input[type="email"] {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            width: 250px;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            #countdown { gap: 0.5rem; }
+            .subscribe-form { flex-direction: column; align-items: center; }
+            input[type="email"] { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Something big is coming.</h1>
+        <p>We're working hard to give you the best experience. Stay tuned!</p>
+
+        <div id="countdown">
+            <div class="time-box">
+                <span id="days">00</span>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <div class="label">Mins</div>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <div class="label">Secs</div>
+            </div>
+        </div>
+
+        <form class="subscribe-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Notify Me</button>
+        </form>
+    </div>
+
+    <script>
+        // Set the launch date (Format: Month Day, Year Time)
+        const launchDate = new Date("Dec 31, 2026 00:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.querySelector(".container").innerHTML = "<h1>We are Live!</h1>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
